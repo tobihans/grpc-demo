@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "org.example.grpc.todo";
+
+service TodoService {
+  rpc CreateTodo(TodoCreate) returns (TodoCreateResponse);
+  rpc GetAllTodos(TodosGet) returns (TodosGetResponse);
+  rpc SearchTodos(TodosSearch) returns (TodosGetResponse);
+}
+
+message TodoModel {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  bool completed = 4;
+  google.protobuf.Timestamp createdAt = 5;
+}
+
+message TodoCreate {
+  string title = 1;
+  string description = 2;
+}
+
+message TodoCreateResponse {
+  string message = 1;
+  bool success = 2;
+  TodoModel todo = 3;
+}
+
+message TodosGet {
+  int32 page = 1;
+  int32 perPage = 2;
+}
+
+message TodosSearch {
+  int32 page = 1;
+  int32 perPage = 2;
+  string query = 3;
+}
+
+message TodosGetResponse {
+  int32 page = 1;
+  int32 perPage = 2;
+  repeated TodoModel items = 3;
+  bool hasNextPage = 5;
+}
+
