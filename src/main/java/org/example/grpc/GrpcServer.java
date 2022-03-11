@@ -13,8 +13,8 @@ public class GrpcServer {
   private final int port;
   private final Server server;
 
-  public GrpcServer() {
-    port = 9000;
+  public GrpcServer(int port) {
+    this.port = port;
     server = ServerBuilder
       .forPort(port)
       .addService(new org.example.grpc.todo.Service())
